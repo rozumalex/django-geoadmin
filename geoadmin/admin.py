@@ -13,6 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .options import get_option
 from .version import __version__
+from .encoder import UUIDEncoder
 
 
 class GeoAdminMixin(object):
@@ -61,7 +62,7 @@ class GeoAdminMixin(object):
     def geoadmin_serialize(self, request, queryset):
         """Geoadmin API data serializer"""
         js = self.geoadmin_list_json(request, queryset)
-        return json.dumps(js)
+        return json.dumps(js, cls=UUIDEncoder)
 
     def geoadmin_list_json(self, request, queryset):
         """Geoadmin API data extractor"""
